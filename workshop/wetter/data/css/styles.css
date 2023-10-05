@@ -1,0 +1,15 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4; /* Ein elegantes Grau */
+    padding: 30px; /* Ein Abstand zu allen Seiten des Viewports */
+}
+
+.panel {
+    background-color: #ffffff; /* Weißer Hintergrund */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Ein leichter Schatten, um Tiefe zu erzeugen */
+    border-radius: 5px; /* Abgerundete Ecken */
+    padding: 20px; /* Innenabstand */
+    max-width: 800px; /* Maximale Breite des Panels */
+    margin: 0 auto; /* Zentrieren des Panels horizontal */
+}

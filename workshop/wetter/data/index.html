@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensor Daten</title>
+    <script type="module" src="js/chart.umd.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <div class="panel">
+        <h2>BMP085 & BH1750 Daten</h2>
+        <canvas id="myChart"></canvas>
+    </div>
+    <script>
+        var myChart;
+
+        function createChart(labels, luxData, tempData, pressureData, altitudeData, seaPressureData) {
+            var ctx = document.getElementById('myChart').getContext('2d');
+            if (myChart) {
+                myChart.destroy();
+            }
+            myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Lux (BH1750)',
+                        data: luxData,
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1,
+                        fill: false
+                    }, {
+                        label: 'Temperature (BMP085)',
+                        data: tempData,
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1,
+                        fill: false
+                    }, {
+                        label: 'Pressure (BMP085)',
+                        data: pressureData,
+                        borderColor: 'rgba(255, 206, 86, 1)',
+                        borderWidth: 1,
+                        fill: false
+                    }, {
+                        label: 'Altitude (BMP085)',
+                        data: altitudeData,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1,
+                        fill: false
+                    }, {
+                        label: 'Sea Pressure (BMP085)',
+                        data: seaPressureData,
+                        borderColor: 'rgba(153, 102, 255, 1)',
+                        borderWidth: 1,
+                        fill: false
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        function useDummyData() {
+            let luxData = [200, 210, 220];
+            let tempData = [22.5, 22.6, 23.0];
+            let pressureData = [1015.2, 1015.8, 1016.0];
+            let altitudeData = [200, 202, 205];
+            let seaPressureData = [1015.5, 1015.6, 1015.8];
+            createChart(luxData.map((_, index) => index + 1), luxData, tempData, pressureData, altitudeData, seaPressureData);
+        }
+
+        function listenToEvents() {
+            if (!!window.EventSource) {
+                var source = new EventSource('/events');
+                source.addEventListener('onmessage', function (e) {
+                    let jsonData = JSON.parse(e.data);
+                    createChart(jsonData.labels, jsonData.luxData, jsonData.tempData, jsonData.pressureData, jsonData.altitudeData, jsonData.seaPressureData);
+                }, false);
+
+                source.addEventListener('open', function (e) {
+                    console.log('Connection was opened');
+                }, false);
+
+                source.addEventListener('error', function (e) {
+                    if (e.readyState == EventSource.CLOSED) {
+                        console.log('Connection was closed');
+                    } else {
+                        console.log('An error occurred: ', e);
+                    }
+                }, false);
+            } else {
+                console.warn('Your browser does not support EventSource.');
+            }
+        }
+
+        if (new URLSearchParams(window.location.search).has('dummy')) {
+            useDummyData();
+        } else {
+            listenToEvents();
+        }
+    </script>
+</body>
+
+</html>

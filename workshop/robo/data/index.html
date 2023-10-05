@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Workshop</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" href="css/jquery/jquery.mobile-1.4.5.min.css"> -->
+    <link rel="stylesheet" href="css/jquery/jquery.mobile.min.css">
+    <script src="js/jquery/jquery-1.11.1.min.js"></script>
+    <script src="js/jquery/jquery.mobile-1.4.5.min.js"></script>
+    <style>
+        .ui-content {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div data-role="page" id="page0">
+        <div data-role="header" data-theme="b">
+            <h1></h1>
+            <a href="#" data-rel="back" data-icon="back" data-iconpos="notext"></a>
+            <a href="#panel0" data-icon="bars" data-iconpos="notext">Menu</a>
+        </div>
+        <div data-role="content">
+            <h2>Control</h2>
+<style>
+.centerButton {
+    width: 100px !important;
+    margin: 0 auto;
+}
+</style>
+
+<p><a href="#" id="start" class="centerButton" data-role="button" data-theme="b">Start Loop</a></p>
+<p><a href="#" id="stop" class="centerButton" data-role="button" data-theme="b">Stop Loop</a></p>
+<script>
+$("#start").click(function() {
+    fetch("/start").then(function(response) {
+      return response.json();
+    }).then(function(data) {
+      console.log(data);
+    }).catch(function(err) {
+      console.log('Fetch Error :-S', err);
+    });
+});
+$("#stop").click(function() {
+    fetch("/stop").then(function(response) {
+      return response.json();
+    }).then(function(data) {
+      console.log(data);
+    }).catch(function(err) {
+      console.log('Fetch Error :-S', err);
+    });
+});
+</script>
+            <a href="#page1" data-role="button" data-theme="b">Weiter</a>
+        </div>
+        <div data-role="panel" id="panel0" data-position="right" data-display="overlay" data-theme="b">
+            <ul data-role="listview">
+                <li><a href="#page0">> Control</a></li><li><a href="#page1">Einführung in Arduino und NodeMCU</a></li><li><a href="#page2">Ändere den Namen von dem AccessPoint von robo in einem von dir gewählten Namen</a></li><li><a href="#page3">Verbinde dich mit dem Access Point und starte und stoppe die loop function</a></li><li><a href="#page4">Mit dem Klebeband irgendwo einen kleinen streifen hinkleben, damit der Roboter diesen folgen kann</a></li><li><a href="#page5">Konfiguriere die Sensoren</a></li><li><a href="#page6">Implementiere die Logik</a></li><li><a href="#page7">Montiere die Ränder und teste deine Implementierung</a></li>
+            </ul>
+        </div>
+        <div data-role="footer" data-position="fixed" data-theme="b">
+	        <h3>0 / 8</h3>
+        </div>
+    </div>
+    
+
+    <div data-role="page" id="page1">
+        <div data-role="header" data-theme="b">
+            <h1></h1>
+            <a href="#" data-rel="back" data-icon="back" data-iconpos="notext"></a>
+            <a href="#panel1" data-icon="bars" data-iconpos="notext">Menu</a>
+        </div>
+        <div data-role="content">
+            <h2>Einführung in Arduino und NodeMCU</h2>
+<h3>Was ist Arduino und wofür wird es verwendet?</h3>
+<p>Arduino ist eine Plattform für Elektronik- und Mikrocontroller-Projekte. Diese Plattform umfasst zum einen die Arduino Elektronik-Hardware-Boards und zum anderen die Arduino Software mit deren Hilfe die Boards programmiert werden können.
+Das Geniale an Arduino ist: Die gesamte Plattform ist „open Source“. Das heißt, dass die Schaltpläne und Layouts der Hardware Boards frei zugänglich sind und jeder sie für seine Zwecke verwenden oder modifizieren kann.</p>
+<h3>Was ist ein NodeMCU und welche Funktionen bietet es?</h3>
+<p>Das NodeMCU Entwicklerboard ist ein kleiner, leistungsstarker Mikrocontroller. Es verfügt ähnlich wie ein Arduino-Board über GPIOs (general purpose input/output), also digitale Ein- und Ausgänge und zusätzlich ist ein ESP8266-Modul integriert. Über dieses Modul kann eine Verbindung in WLAN-Netze hergestellt werden.</p>
+<p>https://www.elektrotechnik-einfach.de/was-ist-arduino/</p>
+<h3>Pin Belegung</h3>
+<p><img src='img/nodemcu-pinout-functions.jpg' width="80%" alt="Nodemcu"/></p>
+<p>Quelle: https://www.make-it.ca/nodemcu-details-specifications/</p>
+            <a href="#page2" data-role="button" data-theme="b">Weiter</a>
+        </div>
+        <div data-role="panel" id="panel1" data-position="right" data-display="overlay" data-theme="b">
+            <ul data-role="listview">
+                <li><a href="#page0">Control</a></li><li><a href="#page1">> Einführung in Arduino und NodeMCU</a></li><li><a href="#page2">Ändere den Namen von dem AccessPoint von robo in einem von dir gewählten Namen</a></li><li><a href="#page3">Verbinde dich mit dem Access Point und starte und stoppe die loop function</a></li><li><a href="#page4">Mit dem Klebeband irgendwo einen kleinen streifen hinkleben, damit der Roboter diesen folgen kann</a></li><li><a href="#page5">Konfiguriere die Sensoren</a></li><li><a href="#page6">Implementiere die Logik</a></li><li><a href="#page7">Montiere die Ränder und teste deine Implementierung</a></li>
+            </ul>
+        </div>
+        <div data-role="footer" data-position="fixed" data-theme="b">
+	        <h3>1 / 8</h3>
+        </div>
+    </div>
+    
+
+    <div data-role="page" id="page2">
+        <div data-role="header" data-theme="b">
+            <h1></h1>
+            <a href="#" data-rel="back" data-icon="back" data-iconpos="notext"></a>
+            <a href="#panel2" data-icon="bars" data-iconpos="notext">Menu</a>
+        </div>
+        <div data-role="content">
+            <h2>Ändere den Namen von dem AccessPoint von robo in einem von dir gewählten Namen</h2>
+<ul>
+<li>datei main.cpp finden</li>
+<li>code stelle finden und den namen ändern</li>
+<li>in das Plugin "PlatformIO" wechseln (links an der seite, der Armeisenkopf)</li>
+<li>Unter nodemcuv2 -&gt; General -&gt; Upload and Monitor -&gt; Schauen ob der Wifi name geändert wurde</li>
+</ul>
+            <a href="#page3" data-role="button" data-theme="b">Weiter</a>
+        </div>
+        <div data-role="panel" id="panel2" data-position="right" data-display="overlay" data-theme="b">
+            <ul data-role="listview">
+                <li><a href="#page0">Control</a></li><li><a href="#page1">Einführung in Arduino und NodeMCU</a></li><li><a href="#page2">> Ändere den Namen von dem AccessPoint von robo in einem von dir gewählten Namen</a></li><li><a href="#page3">Verbinde dich mit dem Access Point und starte und stoppe die loop function</a></li><li><a href="#page4">Mit dem Klebeband irgendwo einen kleinen streifen hinkleben, damit der Roboter diesen folgen kann</a></li><li><a href="#page5">Konfiguriere die Sensoren</a></li><li><a href="#page6">Implementiere die Logik</a></li><li><a href="#page7">Montiere die Ränder und teste deine Implementierung</a></li>
+            </ul>
+        </div>
+        <div data-role="footer" data-position="fixed" data-theme="b">
+	        <h3>2 / 8</h3>
+        </div>
+    </div>
+    
+
+    <div data-role="page" id="page3">
+        <div data-role="header" data-theme="b">
+            <h1></h1>
+            <a href="#" data-rel="back" data-icon="back" data-iconpos="notext"></a>
+            <a href="#panel3" data-icon="bars" data-iconpos="notext">Menu</a>
+        </div>
+        <div data-role="content">
+            <h2>Verbinde dich mit dem Access Point und starte und stoppe die loop function</h2>
+<ul>
+<li>hier könnte was stehen, tuts nicht</li>
+</ul>
+            <a href="#page4" data-role="button" data-theme="b">Weiter</a>
+        </div>
+        <div data-role="panel" id="panel3" data-position="right" data-display="overlay" data-theme="b">
+            <ul data-role="listview">
+                <li><a href="#page0">Control</a></li><li><a href="#page1">Einführung in Arduino und NodeMCU</a></li><li><a href="#page2">Ändere den Namen von dem AccessPoint von robo in einem von dir gewählten Namen</a></li><li><a href="#page3">> Verbinde dich mit dem Access Point und starte und stoppe die loop function</a></li><li><a href="#page4">Mit dem Klebeband irgendwo einen kleinen streifen hinkleben, damit der Roboter diesen folgen kann</a></li><li><a href="#page5">Konfiguriere die Sensoren</a></li><li><a href="#page6">Implementiere die Logik</a></li><li><a href="#page7">Montiere die Ränder und teste deine Implementierung</a></li>
+            </ul>
+        </div>
+        <div data-role="footer" data-position="fixed" data-theme="b">
+	        <h3>3 / 8</h3>
+        </div>
+    </div>
+    
+
+    <div data-role="page" id="page4">
+        <div data-role="header" data-theme="b">
+            <h1></h1>
+            <a href="#" data-rel="back" data-icon="back" data-iconpos="notext"></a>
+            <a href="#panel4" data-icon="bars" data-iconpos="notext">Menu</a>
+        </div>
+        <div data-role="content">
+            <h2>Mit dem Klebeband irgendwo einen kleinen streifen hinkleben, damit der Roboter diesen folgen kann</h2>
+<p>Klebeband für die Linienverfolgung vorbereiten:</p>
+<p>Schneide ein Stück Klebeband in der gewünschten Länge ab und klebe es auf den Boden.
+Achte darauf, dass das Klebeband gerade und gut befestigt ist, um eine klare Linie für den Roboter zu schaffen.
+Lasse genügend Platz um das Klebeband herum, damit der Roboter genügend Raum hat, um die Linie zu erkennen und ihr zu folgen.</p>
+            <a href="#page5" data-role="button" data-theme="b">Weiter</a>
+        </div>
+        <div data-role="panel" id="panel4" data-position="right" data-display="overlay" data-theme="b">
+            <ul data-role="listview">
+                <li><a href="#page0">Control</a></li><li><a href="#page1">Einführung in Arduino und NodeMCU</a></li><li><a href="#page2">Ändere den Namen von dem AccessPoint von robo in einem von dir gewählten Namen</a></li><li><a href="#page3">Verbinde dich mit dem Access Point und starte und stoppe die loop function</a></li><li><a href="#page4">> Mit dem Klebeband irgendwo einen kleinen streifen hinkleben, damit der Roboter diesen folgen kann</a></li><li><a href="#page5">Konfiguriere die Sensoren</a></li><li><a href="#page6">Implementiere die Logik</a></li><li><a href="#page7">Montiere die Ränder und teste deine Implementierung</a></li>
+            </ul>
+        </div>
+        <div data-role="footer" data-position="fixed" data-theme="b">
+	        <h3>4 / 8</h3>
+        </div>
+    </div>
+    
+
+    <div data-role="page" id="page5">
+        <div data-role="header" data-theme="b">
+            <h1></h1>
+            <a href="#" data-rel="back" data-icon="back" data-iconpos="notext"></a>
+            <a href="#panel5" data-icon="bars" data-iconpos="notext">Menu</a>
+        </div>
+        <div data-role="content">
+            <h2>Konfiguriere die Sensoren</h2>
+<p>Der Potentiometer an den Line-Following-Sensoren ermöglicht die Einstellung der Empfindlichkeit, um die Linie genau zu erkennen.
+Finde den Potentiometer auf den Sensormodulen. Es sollte ein kleiner Schraubendreher-Schlitz oder ein verstellbarer Widerstand vorhanden sein.
+Drehe den Potentiometer im Uhrzeigersinn, um die Empfindlichkeit zu erhöhen, oder gegen den Uhrzeigersinn, um sie zu verringern.
+Während du den Potentiometer einstellst, beobachte die Reaktion der Sensoren auf das Klebeband.
+Ziel ist es, die Empfindlichkeit so einzustellen, dass der Roboter das Klebeband zuverlässig erkennt und ihm genau folgen kann, ohne von der Linie abzuweichen.</p>
+            <a href="#page6" data-role="button" data-theme="b">Weiter</a>
+        </div>
+        <div data-role="panel" id="panel5" data-position="right" data-display="overlay" data-theme="b">
+            <ul data-role="listview">
+                <li><a href="#page0">Control</a></li><li><a href="#page1">Einführung in Arduino und NodeMCU</a></li><li><a href="#page2">Ändere den Namen von dem AccessPoint von robo in einem von dir gewählten Namen</a></li><li><a href="#page3">Verbinde dich mit dem Access Point und starte und stoppe die loop function</a></li><li><a href="#page4">Mit dem Klebeband irgendwo einen kleinen streifen hinkleben, damit der Roboter diesen folgen kann</a></li><li><a href="#page5">> Konfiguriere die Sensoren</a></li><li><a href="#page6">Implementiere die Logik</a></li><li><a href="#page7">Montiere die Ränder und teste deine Implementierung</a></li>
+            </ul>
+        </div>
+        <div data-role="footer" data-position="fixed" data-theme="b">
+	        <h3>5 / 8</h3>
+        </div>
+    </div>
+    
+
+    <div data-role="page" id="page6">
+        <div data-role="header" data-theme="b">
+            <h1></h1>
+            <a href="#" data-rel="back" data-icon="back" data-iconpos="notext"></a>
+            <a href="#panel6" data-icon="bars" data-iconpos="notext">Menu</a>
+        </div>
+        <div data-role="content">
+            <h2>Implementiere die Logik</h2>
+<p>Implementiere die Logik in der loop-Funktion in der main.cpp-Datei, um den Roboter dem Klebeband folgen zu lassen.</p>
+<p>Die loop-Funktion wird fortlaufend ausgeführt und ist der Hauptarbeitsbereich des Roboters.
+In dieser Funktion sollst du den aktuellen Zustand des Roboters aus den Sensorwerten auslesen und entsprechende Aktionen ausführen, um dem Klebeband zu folgen.
+Die Sensorwerte werden mit den Schwellenwerten verglichen, um festzustellen, ob der Roboter auf der Linie ist oder nicht.
+Basierend auf dem Zustand des Roboters kannst du verschiedene Aktionen ausführen, um auf der Linie zu bleiben. Zum Beispiel die Motoren steuern, Richtungsänderungen vornehmen oder andere relevante Funktionen nutzen.
+Es ist wichtig, dass du die Roboterlogik so implementierst, dass der Roboter zuverlässig dem Klebeband folgen kann, ohne davon abzuweichen.</p>
+            <a href="#page7" data-role="button" data-theme="b">Weiter</a>
+        </div>
+        <div data-role="panel" id="panel6" data-position="right" data-display="overlay" data-theme="b">
+            <ul data-role="listview">
+                <li><a href="#page0">Control</a></li><li><a href="#page1">Einführung in Arduino und NodeMCU</a></li><li><a href="#page2">Ändere den Namen von dem AccessPoint von robo in einem von dir gewählten Namen</a></li><li><a href="#page3">Verbinde dich mit dem Access Point und starte und stoppe die loop function</a></li><li><a href="#page4">Mit dem Klebeband irgendwo einen kleinen streifen hinkleben, damit der Roboter diesen folgen kann</a></li><li><a href="#page5">Konfiguriere die Sensoren</a></li><li><a href="#page6">> Implementiere die Logik</a></li><li><a href="#page7">Montiere die Ränder und teste deine Implementierung</a></li>
+            </ul>
+        </div>
+        <div data-role="footer" data-position="fixed" data-theme="b">
+	        <h3>6 / 8</h3>
+        </div>
+    </div>
+    
+
+    <div data-role="page" id="page7">
+        <div data-role="header" data-theme="b">
+            <h1></h1>
+            <a href="#" data-rel="back" data-icon="back" data-iconpos="notext"></a>
+            <a href="#panel7" data-icon="bars" data-iconpos="notext">Menu</a>
+        </div>
+        <div data-role="content">
+            <h2>Montiere die Ränder und teste deine Implementierung</h2>
+<ul>
+<li>...</li>
+</ul>
+            <a href="#page8" data-role="button" data-theme="b">Weiter</a>
+        </div>
+        <div data-role="panel" id="panel7" data-position="right" data-display="overlay" data-theme="b">
+            <ul data-role="listview">
+                <li><a href="#page0">Control</a></li><li><a href="#page1">Einführung in Arduino und NodeMCU</a></li><li><a href="#page2">Ändere den Namen von dem AccessPoint von robo in einem von dir gewählten Namen</a></li><li><a href="#page3">Verbinde dich mit dem Access Point und starte und stoppe die loop function</a></li><li><a href="#page4">Mit dem Klebeband irgendwo einen kleinen streifen hinkleben, damit der Roboter diesen folgen kann</a></li><li><a href="#page5">Konfiguriere die Sensoren</a></li><li><a href="#page6">Implementiere die Logik</a></li><li><a href="#page7">> Montiere die Ränder und teste deine Implementierung</a></li>
+            </ul>
+        </div>
+        <div data-role="footer" data-position="fixed" data-theme="b">
+	        <h3>7 / 8</h3>
+        </div>
+    </div>
+        
+</body>
+</html>
