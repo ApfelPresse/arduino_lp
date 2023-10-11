@@ -24,6 +24,61 @@ IPAddress netMsk(255, 255, 255, 0);
 
 DNSServer dnsServer;
 
+void stop()
+{
+  digitalWrite(PWMA, LOW);
+  digitalWrite(DA, LOW);
+
+  digitalWrite(PWMB, LOW);
+  digitalWrite(DB, LOW);
+}
+
+void move_forward()
+{
+  analogWrite(PWMA, 255);
+  digitalWrite(DA, HIGH);
+
+  analogWrite(PWMB, 255);
+  digitalWrite(DB, HIGH);
+}
+
+void move_left()
+{
+  analogWrite(PWMA, 255);
+  digitalWrite(DA, LOW);
+
+  analogWrite(PWMB, 255);
+  digitalWrite(DB, HIGH);
+}
+
+void move_right()
+{
+  analogWrite(PWMA, 255);
+  digitalWrite(DA, HIGH);
+
+  analogWrite(PWMB, 255);
+  digitalWrite(DB, LOW);
+}
+
+void move_backward()
+{
+  analogWrite(PWMA, 255);
+  digitalWrite(DA, LOW);
+
+  analogWrite(PWMB, 255);
+  digitalWrite(DB, LOW);
+}
+
+int read_left_sensor()
+{
+  return digitalRead(D7);
+}
+
+int read_right_sensor()
+{
+  return digitalRead(D6);
+}
+
 void config_ap_response()
 {
   server.serveStatic("/", LittleFS, "/").setDefaultFile("index.html").setCacheControl("max-age=30");
@@ -71,9 +126,27 @@ void setup()
   Serial.begin(9600);
   delay(1000);
 
+  pinMode(PWMA, OUTPUT); // how fast should the motor turn
+  pinMode(PWMB, OUTPUT);
+  pinMode(DA, OUTPUT); // is this pin enbaled the motor will spin
+  pinMode(DB, OUTPUT);
+  pinMode(D7, INPUT); // we want to read the sensor from pin D7
+  pinMode(D6, INPUT);
+
   setup_littlefs();
   setup_ap();
   setup_webserver();
+
+  server.on("/start", HTTP_GET, [](AsyncWebServerRequest *request)
+            { 
+                looping = true;
+                request->send(200, "text/plain"); });
+
+  server.on("/stop", HTTP_GET, [](AsyncWebServerRequest *request)
+            { 
+                looping = false;
+                request->send(200, "text/plain"); });
+
 
   Serial.println(F("Looping.."));
 }
@@ -81,4 +154,18 @@ void setup()
 void loop()
 {
   dnsServer.processNextRequest();
+  if (looping) {
+    if (read_left_sensor() == 1) {
+      Serial.println(F("Turn left?")); 
+    }
+    if (read_right_sensor() == 1) {
+      Serial.println(F("Turn right?")); 
+    }
+    move_left();
+    delay(1000);
+    move_right();
+    delay(1000);    
+  } else {
+    stop();
+  }
 }

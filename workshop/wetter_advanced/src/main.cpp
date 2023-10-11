@@ -8,6 +8,8 @@
 #include <Wire.h>
 #include <Adafruit_BMP085.h>
 
+#include "i2c_scanner.h"
+#include "display_manager.h"
 
 BH1750 lightMeter(0x23);
 Adafruit_BMP085 bmp;
@@ -17,8 +19,14 @@ AsyncEventSource events("/events");
 
 DNSServer dnsServer;
 
+DisplayManager display;
+
 unsigned long lastSentTime = 0;
 const unsigned long sendInterval = 1000;
+
+int readSoilMoisture() {
+  return analogRead(A0);
+}
 
 void setup_accesspoint()
 {
@@ -94,6 +102,10 @@ void setup()
   setup_BMP085_sensor();
   setup_BH1750_light_sensor();
 
+  scan_i2c();
+  
+  display.setup();
+
   Serial.println(F("Looping.."));
 }
 
@@ -133,5 +145,13 @@ void loop()
   {
     sendSensorDataToClients();
     lastSentTime = currentMillis;
+
+    int moistureValue = readSoilMoisture();
+    Serial.print("Bodenfeuchtigkeit: ");
+    Serial.println(moistureValue);
+
+    //display.addTempData(bmp.readTemperature()); // Zum Beispiel 23.5 Grad
+    display.addTempData(moistureValue);
+    display.drawTempChart();
   }
 }
